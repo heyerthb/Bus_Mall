@@ -5,14 +5,16 @@
 var productPic = document.getElementById('products');
 var productPic2 = document.getElementById('products2');
 var productPic3 = document.getElementById('products3');
+var imageContainer = document.getElementById('image-container');
+var productList = document.getElementById('product-list');
 
 var totalClicksAcrossAllUsers = 0;
 var percentageClicked = 0;
 var productArray = [];
-var threePicArr = [];
-// var productPic = document.getElementById(name.jpg);
+var imageIndexArray = [];
+var votesRemaining = 25;
 
-// i need to build a constructor function that builds out instances of all the products
+
 ////////CONSTRUCTOR///////////////////
 
 function DisplayProduct(name){
@@ -48,86 +50,119 @@ new DisplayProduct('wine-glass');
 new DisplayProduct('bag');
 
 //////////////////SHOW A RANDOM IMAGE//////////////
-
-
-// Show a random imager
-function showARandomProduct(){
-  // var threePicArr = [];
-  var randomIndex = Math.floor(Math.random() * productArray.length);
-  productPic.src= productArray[randomIndex].filepath;
-  productPic.alt=productArray[randomIndex].name;
-  productPic.title=productArray[randomIndex].name;
-  threePicArr.push(this);
-
-  // productArray[randomIndex].timesShown++;
-  // threePicArr[0] = [randomIndex];
+function randomIndex(){
+  return Math.floor(Math.random() * productArray.length);
 }
+
+function showARandomProduct(){
+  var imgIndex = randomIndex();
+  while(imageIndexArray.includes(imgIndex)){
+    imgIndex = randomIndex();
+  }
+  productPic.src= productArray[imgIndex].filepath;
+  productPic.alt=productArray[imgIndex].name;
+  productPic.title=productArray[imgIndex].name;
+  productArray[imgIndex].timesShown++;
+  imageIndexArray.push(imgIndex);
+  // remove 0 index from array
+
+  while(imageIndexArray.length > 6){
+    imageIndexArray.shift();
+  }
+
+
+
+  console.log(imageIndexArray);
+}
+
 function showARandomProduct2(){
-  var randomIndex = Math.floor(Math.random() * productArray.length);
-  productPic2.src= productArray[randomIndex].filepath;
-  productPic2.alt=productArray[randomIndex].name;
-  productPic2.title=productArray[randomIndex].name;
-  threePicArr.push(this);
-  // productArray[randomIndex1 !== randomIndex].timesShown++;
-  // threePicArr[1] = [randomIndex1];
+  var imgIndex = randomIndex();
+  while(imageIndexArray.includes(imgIndex)){
+    imgIndex = randomIndex();
+    // productArray.pop();
+  }
+  productPic2.src= productArray[imgIndex].filepath;
+  productPic2.alt=productArray[imgIndex].name;
+  productPic2.title=productArray[imgIndex].name;
+  productArray[imgIndex].timesShown++;
+
+  imageIndexArray.push(imgIndex);
+  while(imageIndexArray.length > 6){
+    imageIndexArray.shift();
+  }
+  console.log(imageIndexArray);
 }
 function showARandomProduct3(){
-  var randomIndex = Math.floor(Math.random() * productArray.length);
-  productPic3.src= productArray[randomIndex].filepath;
-  productPic3.alt=productArray[randomIndex].name;
-  productPic3.title=productArray[randomIndex].name;
-  threePicArr.push(this);
-  // productArray[randomIndex2 !== randomIndex ||  randomIndex3 !== randomIndex2].timesShown++;
-  // threePicArr[2] = [randomIndex2];
+  var imgIndex = randomIndex();
+  while(imageIndexArray.includes(imgIndex)){
+    imgIndex = randomIndex();
+  }
 
+  productPic3.src= productArray[imgIndex].filepath;
+  productPic3.alt=productArray[imgIndex].name;
+  productPic3.title=productArray[imgIndex].name;
+  productArray[imgIndex].timesShown++;
+  imageIndexArray.push(imgIndex);
 
-
-
+  while(imageIndexArray.length > 6){
+    imageIndexArray.shift();
+  }
+  console.log(imageIndexArray);
 }
 
+function renderResults(){
 
-// var threePicArr[] = showARandomProduct(){
-//   for(var = i, i < 3, i++){
-//     threePicArr[i];
-//   }
-// }
-// for(var i = 0, i < 3, i++){
-//   var threePicArr = [++showARandomProduct()];}}
-
-
-
+  for(var i = 0; i < productArray.length; i++){
+    var liEl = document.createElement('li');
+    liEl.textContent = `${productArray[i].name} got ${productArray[i].votes} votes and was viewed ${productArray[i].timesShown} times`;
+    productList.appendChild(liEl);
+  }
+}
 
 
 // Event handler
-// function handleGoatClick(event){
-//   if(event.target.alt === 'sassy-goat'){
-//     alert('BAAAAAAAAAAAAAA I AM SASSY');
-//   }
-//   showARandomGoat();
-// }
+function handleProductClick(event){
+  if(event.target.id === imageContainer){
+    alert('click the image genius');
+  }
+  console.log(event.target.alt);
+  votesRemaining--;
 
-// Stuff that runs on page load
-// // Event listener
-// products.addEventListener('click', handleProductClick);
-// // Show the first goat
-// console.log(productArray);
+
+  var ProductImgName = event.target.alt;
+  console.log('my event target alt', event.target.alt);
+
+  for(var i = 0; i < productArray.length; i++){
+    if(productArray[i].name === ProductImgName){
+      productArray[i].votes++;
+    }
+  }
+
+  if(votesRemaining === 0){
+    renderResults();
+    imageContainer.removeEventListener('click', handleProductClick);
+  }
+  threePicDisplay();
+}
+
+
+
+
 function threePicDisplay(){
   showARandomProduct();
   showARandomProduct2();
   showARandomProduct3();
-  // var threePicArr = [showARandomProduct(showARandomProduct() !== showARandomProduct2()&& showARandomProduct() !== showARandomProduct3()), showARandomProduct2(showARandomProduct2() !== showARandomProduct3()), showARandomProduct3()];
-console.log(threePicArr);
-
-
-  var display = threePicArr;
 }
-// threePicArr
-// console.log(threePicArr);
-console.log(threePicArr);
-console.log(productArray);
-threePicDisplay();
-//////////////this shows one product, and i want to show 3. I;m thinking I should populate an array of three random products.
 
+
+
+
+// console.log(imageIndexArray);
+// console.log(timesShown);
+// console.log(productArray);
+threePicDisplay();
+
+imageContainer.addEventListener('click', handleProductClick);
 
 
 
