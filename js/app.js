@@ -14,6 +14,11 @@ var productArray = [];
 var imageIndexArray = [];
 var votesRemaining = 25;
 
+var dataChart;
+var chartDrawn = false;
+var votes = [];
+var productNames = [];
+
 
 ////////CONSTRUCTOR///////////////////
 
@@ -79,7 +84,6 @@ function showARandomProduct2(){
   var imgIndex = randomIndex();
   while(imageIndexArray.includes(imgIndex)){
     imgIndex = randomIndex();
-    // productArray.pop();
   }
   productPic2.src= productArray[imgIndex].filepath;
   productPic2.alt=productArray[imgIndex].name;
@@ -119,10 +123,16 @@ function renderResults(){
   }
 }
 
+function tallyChartData() {
+  for (var i = 0; i < productArray.length; i++) {
+    productNames[i] = productArray[i].name;
+    votes[i] = productArray[i].votes;
+  }
+}
 
 // Event handler
 function handleProductClick(event){
-  if(event.target.id === imageContainer){
+  if(event.target.id === 'image-container'){
     alert('click the image genius');
   }
   console.log(event.target.alt);
@@ -140,10 +150,13 @@ function handleProductClick(event){
 
   if(votesRemaining === 0){
     renderResults();
+    tallyChartData();
+    drawChart();
     imageContainer.removeEventListener('click', handleProductClick);
   }
   threePicDisplay();
 }
+
 
 
 
@@ -153,9 +166,59 @@ function threePicDisplay(){
   showARandomProduct2();
   showARandomProduct3();
 }
+/////////////////////////CHART STUFF////////////////
 
 
+var data = {
+  labels: productNames, // titles array we declared earlier
+  datasets: [{
+    label: 'Vote Distribution',
+    data: votes, // votes array we declared earlier
+    backgroundColor: [
+      'bisque',
+      'darkgray',
+      'burlywood',
+      'lightblue',
+      'navy'
+    ],
+    hoverBackgroundColor: [
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple'
+    ]
+  }]
+};
 
+
+function drawChart() {
+  var ctx = document.getElementById('product-chart').getContext('2d');
+  dataChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false,
+      animation: {
+        duration: 2000,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
+  chartDrawn = true;
+}
+document.getElementById('product-list').addEventListener('click', function() {
+  document.getElementById('product-list').hidden = true;
+});
 
 // console.log(imageIndexArray);
 // console.log(timesShown);
@@ -164,5 +227,28 @@ threePicDisplay();
 
 imageContainer.addEventListener('click', handleProductClick);
 
+// document.getElementById('draw-chart').addEventListener('click', function() {
+//   drawChart();
+//   console.log('chart was drawn');
+// });
 
+// document.getElementById('').addEventListener('click', function() {
+//   renderResults();
+// });
+
+// // document.getElementById('list-button').addEventListener('click', showSongsAsList);
+
+// document.getElementById('product-list').addEventListener('click', function() {
+//   document.getElementById('product-list').hidden = true;
+// });
+
+// document.getElementById('voting').addEventListener('click', function(event) {
+//   if (event.target.id !== 'voting') {
+//     tallyVote(event.target.id);
+//   }
+
+//   if (chartDrawn) {
+//     productArray.update();
+//   }
+// });
 
