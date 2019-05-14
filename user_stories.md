@@ -1,3 +1,5 @@
+<!-- user stories -->
+
 <!-- AS PART OF THE MARKETING TEAM -->
 As a member of the marketing team I want to know which items continually attract attention from potential shoppers.
 As a member of the marketing team I want to compile randomized data to determine if there are trends of interest for potential shoppers.
@@ -20,3 +22,4 @@ As a member of the focus group I want to see a stylish and relevant site.
 As a member of the focus group I want not feel like I'm wasting my time by participating in this focus group.
 As a member of the focus group I want to understand the marketplace for which this product is being designed and be given a reason to care.
 As a member of the focus group I want to be a part of something pretty cool that I can get excited about.
+
