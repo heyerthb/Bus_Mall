@@ -1,14 +1,37 @@
 /* entire document*/
 img{
-  width: 200px;
+  width: 250px;
+  height: 300px;
+  margin: 30px;
 }
 
 
-/* head /*
-
-
-
+/* /* head /* */
+header{
+  height:150px;
+  background-color: goldenrod;
+  margin-bottom: 30px;
+}
+h1{
+  color: darkslategrey; 
+  text-align: center;
+  font-size: 30pt;
+  padding-top: 55px;
+}
+body{
+  width: 960px;
+  margin: 0px auto;
+  padding: 30px;
+  
+}
 /* main */
+
+section{
+  display: inline-block;
+  background-color: darkslategrey;
+  margin: 3px;
+  
+}
 
 
 
