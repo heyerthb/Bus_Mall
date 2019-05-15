@@ -1,6 +1,5 @@
 'use strict';
 
-// I need to make global variables for total clicks and percentage of clicks
 /////////////////GLOBAL VARIABLES//////////////////
 var productPic = document.getElementById('products');
 var productPic2 = document.getElementById('products2');
@@ -19,9 +18,37 @@ var chartDrawn = false;
 var votes = [];
 var productNames = [];
 
+var busStorage = [];
 
 
 
+if(localStorage.products){
+ var parsedProducts = JSON.parse(localStorage.getItem('products'));
+  productArray = parsedProducts;
+ 
+} else{
+  new DisplayProduct('banana');
+  new DisplayProduct('bathroom');
+  new DisplayProduct('boots');
+  new DisplayProduct('breakfast');
+  new DisplayProduct('bubblegum');
+  new DisplayProduct('chair');
+  new DisplayProduct('cthulhu');
+  new DisplayProduct('dog-duck');
+  new DisplayProduct('dragon');
+  new DisplayProduct('pen');
+  new DisplayProduct('pet-sweep');
+  new DisplayProduct('scissors');
+  new DisplayProduct('shark');
+  new DisplayProduct('sweep');
+  new DisplayProduct('tauntaun');
+  new DisplayProduct('unicorn');
+  new DisplayProduct('usb');
+  new DisplayProduct('water-can');
+  new DisplayProduct('wine-glass');
+  new DisplayProduct('bag');
+  
+}
 ////////CONSTRUCTOR///////////////////
 
 function DisplayProduct(name){
@@ -35,26 +62,6 @@ function DisplayProduct(name){
 
 /////////////INSTANCES////////////////
 
-new DisplayProduct('banana');
-new DisplayProduct('bathroom');
-new DisplayProduct('boots');
-new DisplayProduct('breakfast');
-new DisplayProduct('bubblegum');
-new DisplayProduct('chair');
-new DisplayProduct('cthulhu');
-new DisplayProduct('dog-duck');
-new DisplayProduct('dragon');
-new DisplayProduct('pen');
-new DisplayProduct('pet-sweep');
-new DisplayProduct('scissors');
-new DisplayProduct('shark');
-new DisplayProduct('sweep');
-new DisplayProduct('tauntaun');
-new DisplayProduct('unicorn');
-new DisplayProduct('usb');
-new DisplayProduct('water-can');
-new DisplayProduct('wine-glass');
-new DisplayProduct('bag');
 
 //////////////////SHOW A RANDOM IMAGE//////////////
 function randomIndex(){
@@ -151,19 +158,25 @@ function handleProductClick(event){
   }
 
   if(votesRemaining === 0){
-    // renderResults();
     tallyChartData();
+    saveToLocalStorage();
     drawChart();
+
     imageContainer.removeEventListener('click', handleProductClick);
   }
   threePicDisplay();
 }
-
-
-
+function saveToLocalStorage(){
+  var stringifyProducts = JSON.stringify(productArray);
+  localStorage.setItem('products', stringifyProducts);
+}
 
 
 function threePicDisplay(){
+
+
+
+
   showARandomProduct();
   showARandomProduct2();
   showARandomProduct3();
@@ -172,10 +185,10 @@ function threePicDisplay(){
 
 
 var data = {
-  labels: productNames, // titles array we declared earlier
+  labels: productNames, 
   datasets: [{
     label: 'Vote Distribution',
-    data: votes, // votes array we declared earlier
+    data: votes, 
     backgroundColor: [
       'goldenrod',
       'goldenrod',
@@ -210,7 +223,6 @@ var data = {
   }]
 };
 
-
 function drawChart() {
   var ctx = document.getElementById('product-chart').getContext('2d');
   dataChart = new Chart(ctx, {
@@ -233,41 +245,22 @@ function drawChart() {
       }]
     }
   });
+  ///////////////////////////THING///////////////////////////////
   chartDrawn = true;
 }
+
+
+
 document.getElementById('product-list').addEventListener('click', function() {
   document.getElementById('product-list').hidden = true;
+
 });
 
-// console.log(imageIndexArray);
-// console.log(timesShown);
-// console.log(productArray);
 threePicDisplay();
+console.log(busStorage);
+
+console.log(productNames, votes);
 
 imageContainer.addEventListener('click', handleProductClick);
 
-// document.getElementById('draw-chart').addEventListener('click', function() {
-//   drawChart();
-//   console.log('chart was drawn');
-// });
-
-// document.getElementById('').addEventListener('click', function() {
-//   renderResults();
-// });
-
-// // document.getElementById('list-button').addEventListener('click', showSongsAsList);
-
-// document.getElementById('product-list').addEventListener('click', function() {
-//   document.getElementById('product-list').hidden = true;
-// });
-
-// document.getElementById('voting').addEventListener('click', function(event) {
-//   if (event.target.id !== 'voting') {
-//     tallyVote(event.target.id);
-//   }
-
-//   if (chartDrawn) {
-//     productArray.update();
-//   }
-// });
 
