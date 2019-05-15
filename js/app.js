@@ -20,6 +20,8 @@ var votes = [];
 var productNames = [];
 
 
+
+
 ////////CONSTRUCTOR///////////////////
 
 function DisplayProduct(name){
@@ -149,7 +151,7 @@ function handleProductClick(event){
   }
 
   if(votesRemaining === 0){
-    renderResults();
+    // renderResults();
     tallyChartData();
     drawChart();
     imageContainer.removeEventListener('click', handleProductClick);
@@ -175,11 +177,28 @@ var data = {
     label: 'Vote Distribution',
     data: votes, // votes array we declared earlier
     backgroundColor: [
-      'bisque',
-      'darkgray',
-      'burlywood',
-      'lightblue',
-      'navy'
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+      'goldenrod',
+
+
     ],
     hoverBackgroundColor: [
       'purple',
