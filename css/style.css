@@ -18,6 +18,12 @@ h1{
   font-size: 30pt;
   padding-top: 55px;
 }
+p{
+  padding-top: 10px; 
+  padding-bottom: 30px;
+  font-size: 15pt;
+  text-align: justify;
+}
 body{
   width: 960px;
   margin: 0px auto;
@@ -31,6 +37,10 @@ section{
   background-color: darkslategrey;
   margin: 3px;
   
+}
+
+canvas {
+  margin: 0px auto;
 }
 
 
